@@ -1,0 +1,105 @@
+html{ height: 100%;}
+body{margin:0;padding:0;width:100%; height: 100%; background: url("../images/bg.jpg") no-repeat left top; background-size: cover;}
+.headertop{ position: fixed;left: 0; right: 0; top: 0; float: left; width: 100%; border-bottom: 1px solid #003e64; height: 60px;line-height: 60px; color: #fff;z-index: 15;
+    /*background-image: white; */
+    background-image: -moz-linear-gradient(to bottom,#00121d,#002a44);
+    background-image:-webkit-linear-gradient(to bottom,#00121d,#002a44);
+    background-image:linear-gradient(to bottom,#00121d,#002a44);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00121d', endColorstr='#002a44'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00121d', endColorstr='#002a44')"; /* IE8 */
+}
+.header-logo{ float: left; font-size: 26px; font-weight: bold; color: #8acae6; margin-left:30px;}
+.header-right{ float: right; display: inline; margin-right:20px;}
+.hr-box{ border-right:1px solid #5f717b;height:30px;line-height: 30px; margin-top: 15px; padding: 0 10px; }
+.hr-box,.dropdown,.dropdown div{ float: left;display: inline;}
+.hr-box em{ text-decoration: underline;font-style: normal;}
+.hr-box a,.rightnone i{ color: #73d9ff; }
+.rightnone{ border-right: 0;}
+.rightnone i{font-weight: 700;}
+
+.main-box{width:100%;position:relative; clear: both;overflow: hidden;}
+.tab_menu{width:41px;position:fixed;top:100px;right:0; z-index: 99; height: 490px; text-align: center;}
+.tab_menu li{width:41px;line-height:24px;cursor:pointer;text-align:center; margin-bottom:7px; font-size: 18px;
+    border:1px solid #014572;border-right:0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow:inset 0 0 30px 10px  rgba(3, 40, 78, 1);
+    -moz-box-shadow:inset 0 0 30px 10px rgba(3, 40, 78, 1);
+    -webkit-box-shadow:inset  0 0 30px 10px rgba(3, 40, 78, 1);
+    box-shadow:inset 0 0 30px 10px rgba(3, 40, 78, 1);
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#03284e)";
+    /* For IE 5.5 - 7 */
+    filter:  "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#03284e')";
+}
+.tab_menu li a{display: block; color: #fff;padding:26px 0;}
+.tab_menu li:hover,.tab_menu .selected{background-color:#0a71a1 ; border:1px solid #0a71a1 ;cursor:pointer;box-shadow: none;}
+
+.zsuo-inf{ width: 1824px; overflow: hidden; margin: 20px 15px;}
+.zsuo-row{ margin-left: -0.5%; margin-right: -0.5%;}
+.zsuo-bg{ float: left; display: inline; height: 222px; margin: 0 0.5%; background: url("../images/zs-bg1.png") no-repeat left top; background-size: 100% 100%;}
+.zsuo-main{ float: left; display: inline; position: relative; margin-left: 66px; margin-top: 20px;}
+.zsuo-radius{ width: 180px; height: 180px;}
+.center-radiu{ position: absolute; left: 20%; top: 20%; width: 60%; height: 60%; text-align: center;
+    color: #58d6f8; font-size: 24px; font-weight: bold;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+    box-shadow: inset 0 0 70px 10px rgba(36, 116, 167, 1);
+    -moz-box-shadow: inset 0 0 70px 10px rgba(36, 116, 167, 1);
+    -webkit-box-shadow: inset 0 0 70px 10px rgba(36, 116, 167, 1);
+    box-shadow: inset 0 0 70px 10px rgba(36, 116, 167, 1);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#2474a7)";
+    filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#2474a7')";
+}
+.center-radiu span{ display: block; padding-top:17px; }
+.zsuo-right{ float: right; display: inline; width: 290px; margin-top: 30px; margin-right: 40px;}
+.zsuo-right li{ display: block; overflow: hidden; font-size: 18px; color: #73d9ff; margin-bottom: 9px;}
+.inf-font { width: 115px;}
+.zs-radiu{width: 10px;height: 10px; display: inline-block; vertical-align: middle; margin-right: 15px;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;}
+.radiu-bg1{ background-color: #3873f8;}
+.radiu-bg2{ background-color: #d4e535;}
+.radiu-bg3{ background-color: #62f793;}
+.radiu-bg4{ background-color: #58d6f8;}
+
+.radiu-bg5{ background-color: #4ee2fe;}
+.radiu-bg6{ background-color: #ba6967;}
+.radiu-bg7{ background-color: #87ee22;}
+.radiu-bg8{ background-color: #3873f8;}
+
+.radiu-bg9{ background-color: #925ee7;}
+.radiu-bg10{ background-color: #78a5f8;}
+.radiu-bg11{ background-color: #ffac41;}
+.radiu-bg12{ background-color: #51c9e9;}
+.zsuo-right li span input{ width: 122px; height: 30px; line-height: 30px; padding: 0 5px; border: 1px solid #0b7bc7; background-color: #182637; text-align: right; margin: 0 15px 0 20px;}
+
+.zsuo-map{ width: 1824px;height: 746px; background: url("../images/zs-bg2.png") no-repeat center; background-size: cover; margin-left: 21px;}
+.zsuo-map-box{ float: left; display: inline; position: relative; border: 1px solid #0b7bc7; background-color: #0a2131; text-align:center; margin-top: 32px;}
+.zsuo-map-left{ width: 557px;height: 676px;margin-left: 66px;}
+.zsuo-map-left img{ margin-top: 20px;}
+.zsuo-jiao{ position: absolute; width: 41px;height: 41px; }
+.zs-jiao1{ left: -1px; top: -1px; background: url("../images/zs-jiao1.png") no-repeat;}
+.zs-jiao2{ right: -1px; top: -1px; background: url("../images/zs-jiao2.png") no-repeat;}
+.zs-jiao3{ left: -1px; bottom: -1px; background: url("../images/zs-jiao3.png") no-repeat;}
+.zs-jiao4{ right: -1px; bottom: -1px; background: url("../images/zs-jiao4.png") no-repeat;}
+
+.zsuo-map-right{ width: 1125px; height: 676px; margin-left: 25px;}
+.zsuo-map-right img{ width: 1084px;height: 620px; margin-top: 28px;}
+
+.zsuo-col2{ width: 49%;}
+.zsuo-col3{ width: 32.33333333%;}
+.zsuo-col4{ width: 24%;}
+
+.zsuo-col4 .zsuo-main{ margin-left: 0;}
+.zsuo-col4 .zsuo-right{ width: 280px; margin-right: 0;}
+.zsuo-col4 .zsuo-right li{font-size: 16px;}
+.zsuo-col4 .inf-font{width: 105px;}
+.zsuo-col4 .zsuo-right li span input{width: 90px;}
+.zsuo-col4 .zsuo-radius{ width: 160px; height: 160px;}
+
+.zsuo-col2 .zsuo-main{ margin-left: 100px;}
+.zsuo-col2 .zsuo-right{ width: 400px; margin-right: 150px;}
+.zsuo-col2 .zsuo-right li span input{width:230px;}

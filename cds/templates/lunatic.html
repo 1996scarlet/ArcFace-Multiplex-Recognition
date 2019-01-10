@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CDS</title>
+    <link rel="stylesheet" href="static/extras/css/global.css">
+    <link rel="stylesheet" href="static/extras/css/bootstrap.css">
+    <link rel="stylesheet" href="static/extras/css/addClass.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='extras/images/favicon.ico') }}">
+</head>
+
+<body>
+    <script src="static/extras/js/jquery-2.1.4.js"></script>
+    <script src="static/extras/js/bootstrap.js"></script>
+    <script src="static/extras/js/socket.io.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        var interval;
+        var ctx;
+        var d = new Date();
+        var server_ip = "10.41.0.219";
+
+        function mydraw(image_code) {
+            var image = new Image();
+
+            image.onload = function () {
+                ctx.drawImage(image, 0, 0, 1770, 674);
+            };
+
+            var blob = new Blob([image_code], { type: "image/jpeg" });
+
+            var domURL = self.URL || self.webkitURL || self,
+                url = domURL.createObjectURL(blob),
+                img = new Image;
+
+            image.src = url;
+        };
+
+        var socket = io.connect('http://' + server_ip + ':6789/remiria');
+        socket.on('frame_data', function (res) {
+            mydraw(res.data);
+        });
+
+
+        function sendIP(m_btn) {
+            socket.emit('change_ip', { 'param': m_btn.value });
+        };
+    </script>
+
+    <div class="headertop">
+        <div class="header-logo">
+            <!-- <img src="static/extras/images/logo.png" /> -->
+        </div>
+    </div>
+
+    <div class="main-box" style="padding-top:60px;">'param'
+
+        <div class="jumbotron btn btn-outline-info" style="background:transparent; width: 1824px; height:222px; margin: 20px 20px;">
+            <h1>安全作业智能预警系统-<small>CDS子系统</small></h1>
+            <br>
+            <div class="btn-group w-100 h-75" role="group" id="orderBtnGroup">
+                <button onclick="sendIP(this)" name="Camera_Button" id="bt1" type="button" class="h-100 btn btn-outline-info"
+                    style="width:25%" value="10.41.0.208">机柜01</button>
+                <button onclick="sendIP(this)" name="Camera_B'param'utton" id="bt2" type="button" class="h-100 btn btn-outline-info"
+                    style="width:25%" value="10.41.0.210">机柜02</button>
+                <button onclick="sendIP(this)" name="Camera_Button" id="bt3" type="button" class="h-100 btn btn-outline-info"
+                    style="width:25%" value="10.41.0.211">机柜03</button>
+                <button onclick="sendIP(this)" name="Camera_Button" id="bt4" type="button" class="h-100 btn btn-outline-info"
+                    style="width:25%" value="10.41.0.212">机柜04</button>
+            </div>
+        </div>
+
+        <div class="zsuo-map">
+            <div class="zsuo-map-box zsuo-map-right">
+                <canvas id="c" width="1770" height="674"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            ctx = document.getElementById("c").getContext("2d");
+        }
+    </script>
+</body>
+
+</html>
