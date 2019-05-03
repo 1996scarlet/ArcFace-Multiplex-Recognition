@@ -189,16 +189,16 @@ def start_up_init(train_mode=False):
     if not train_mode:
         parser.add_argument('ip_address', type=str,
                             help='相机的IP地址或测试用视频文件名')
-    parser.add_argument('--face_recognize_threshold', type=float,
-                        help='可疑人员识别阈值', default=0.95)
+    # parser.add_argument('--face_recognize_threshold', type=float,
+    #                     help='可疑人员识别阈值', default=0.95)
     parser.add_argument('--max_face_number', type=int,
                         help='同时检测的最大人脸数量', default=8)
     parser.add_argument('--max_frame_rate', type=int,
                         help='最大FPS', default=25)
     parser.add_argument('--image-size', default='112,112',
                         help='输入特征提取网络的图片大小')
-    parser.add_argument('--dangerous_threshold', type=int,
-                        help='1/2报警窗口长度', default=16)
+    # parser.add_argument('--dangerous_threshold', type=int,
+    #                     help='1/2报警窗口长度', default=16)
     parser.add_argument('--model', default='./model-r100-ii/model,0',
                         help='特征提取网络预训练模型路径')
     parser.add_argument('--gpu', default=0, type=int,
