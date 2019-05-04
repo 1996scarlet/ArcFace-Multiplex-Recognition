@@ -182,13 +182,13 @@ def read_pkl_model(mpath):
         return mlp, class_names
 
 
-def start_up_init(train_mode=False):
+def start_up_init():
     parser = argparse.ArgumentParser(description='Arc Face Online Test')
 
     # =================== General ARGS ====================
-    if not train_mode:
-        parser.add_argument('ip_address', type=str,
-                            help='相机的IP地址或测试用视频文件名')
+    # if not train_mode:
+    #     parser.add_argument('ip_address', type=str,
+    #                         help='相机的IP地址或测试用视频文件名')
     # parser.add_argument('--face_recognize_threshold', type=float,
     #                     help='可疑人员识别阈值', default=0.95)
     parser.add_argument('--max_face_number', type=int,
@@ -209,14 +209,14 @@ def start_up_init(train_mode=False):
                         help='是否在训练时进行左右翻转相加操作')
     parser.add_argument('--threshold', default=1.24, type=float,
                         help='空间向量距离阈值')
-    parser.add_argument('-v', '--video_mode', action="store_true",
-                        help='设置从视频读取帧数据', default=False)
-    parser.add_argument('-c', '--cv_test_mode', action="store_true",
-                        help='设置本地预览', default=False)
+    # parser.add_argument('-v', '--video_mode', action="store_true",
+    #                     help='设置从视频读取帧数据', default=False)
+    # parser.add_argument('-c', '--cv_test_mode', action="store_true",
+    #                     help='设置本地预览', default=False)
     parser.add_argument('--mtcnn_minsize', type=int,
-                        help='mtcnn最小检测框的尺寸（越小检测精度越高）', default=50)
+                        help='mtcnn最小检测框的尺寸（越小检测精度越高）', default=48)
     parser.add_argument('--mtcnn_factor', type=float,
-                        help='mtcnn图像缩放系数（关联图像金字塔层数，越大检测精度越高）', default=0.709)
+                        help='mtcnn图像缩放系数（关联图像金字塔层数，越大检测精度越高）', default=0.809)
     parser.add_argument('--mtcnn_threshold', type=float, nargs='+',
                         help='mtcnn三层阈值', default=[0.6, 0.7, 0.92])
 

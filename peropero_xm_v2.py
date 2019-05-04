@@ -1,18 +1,17 @@
 # coding: utf-8
-import face_embedding
-import face_detector
 import cv2
 import os
 import sys
 import numpy as np
 import time
 from termcolor import colored
-from helper import read_pkl_model, start_up_init, encode_image
 import asyncio
 from multiprocessing import Process, Queue, Manager
 import socketio
+from helper import read_pkl_model, start_up_init, encode_image
 from CXMIPCamera import XMIPCamera
-import math
+import face_detector
+import face_embedding
 
 
 async def upload_loop(url="http://127.0.0.1:6789"):
@@ -81,9 +80,8 @@ async def detection_loop(preload):
             upstream_queue.put((ip_address, head_frame))
 
         print(colored(loop.time()-start_time, 'red'))
-        fill_number = math.floor((loop.time() - start_time) * 25)
 
-        for i in range(0, fill_number):
+        for i in range(int((loop.time() - start_time) * 25 + 1)):
             for item in frame_queue.get():
                 upstream_queue.put(item)
 
@@ -128,7 +126,7 @@ suspicion_face_queue = Queue(maxsize=1)
 result_queue = Queue(maxsize=1)
 
 # =================== ARGS ====================
-args = start_up_init(train_mode=True)
+args = start_up_init()
 args.mtcnn_minsize = 288
 args.mtcnn_factor = 0.1
 args.mtcnn_threshold = [0.92, 0.95, 0.99]

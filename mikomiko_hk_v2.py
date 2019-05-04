@@ -9,7 +9,7 @@ import time
 from termcolor import colored
 from helper import read_pkl_model, start_up_init, encode_image
 import asyncio
-from multiprocessing import Process, Queue, Manager
+from multiprocessing import Process, Queue
 import socketio
 from CHKIPCamera import HKIPCamera
 
@@ -62,16 +62,12 @@ async def embedding_loop(preload):
 async def detection_loop(preload, frame_queue):
     # =================== FD MODEL ====================
     detector = face_detector.DetectorModel(preload)
-    fill_number = preload.fill_number
     ip_address = preload.ip_address
-    # loop = asyncio.get_running_loop()
+    loop = asyncio.get_running_loop()
 
     while True:
-        # start_time = loop.time()
-        # sys.stdout.flush()
-
+        start_time = loop.time()
         head_frame = frame_queue.get()
-        # time.sleep(0.4)
 
         # tracker = cv2.MultiTracker_create()
         # t_box = []
@@ -88,15 +84,15 @@ async def detection_loop(preload, frame_queue):
                 head_frame, (box[0], box[1]), (box[2], box[3]), [255, 255, 0], 2)
         # t_box.append(box[:4]/2)
 
-        # print(colored(loop.time()-start_time, 'blue'))
-        head_frame = cv2.resize(head_frame, (960, 540), cv2.INTER_AREA)
+        print(colored(loop.time()-start_time, 'blue'))
+        # head_frame = cv2.resize(head_frame, (960, 540), cv2.INTER_AREA)
 
         # for item in t_box:
         #     tracker.add(cv2.TrackerMedianFlow_create(), head_frame, tuple(item))
         upstream_frame_queue.put((ip_address, head_frame))
         # await sio.emit('frame_data', encode_image(head_frame), namespace='/remilia')
 
-        for i in range(1, fill_number):
+        for i in range(int((loop.time() - start_time) * 25 + 1)):
             body_frame = frame_queue.get()
             # ok, tricker_boxes = tracker.update(body_frame)
             # if ok:
@@ -109,32 +105,25 @@ async def detection_loop(preload, frame_queue):
 
         # end_time = loop.time()
         # print(colored(loop.time()-track_time, 'red'))
-        # sys.stdout.flush()
+        sys.stdout.flush()
 
 
 async def camera_loop(preload):
-    video_mode = preload.video_mode
-    fill_number = preload.fill_number
     reciprocal_of_max_frame_rate = 1/preload.max_frame_rate
+    address_dict = preload.address_dict
+    camera_dict = {}
 
-    # =================== VIDEO INTERFACE ====================
-    if video_mode:
-        video_capture = cv2.VideoCapture("./media/{}".format(ip_address))
-        video_capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
+    # from CXMIPCamera import XMIPCamera
+    # for address in address_dict:
+    #     xmcp = XMIPCamera(address.encode('UTF-8'), 34567, b"admin", b"")
+    #     xmcp.start()
+    #     camera_dict[address] = xmcp
 
-    # =================== CAMERA INTERFACE ====================
-    else:
-        # for address in preload.address_dict:
-        #     camera_231 = HKIPCamera(
-        #         address.encode('UTF-8'), 8000, b"admin", b"humanmotion01")
-        #     camera_231.start()
-        address = '10.41.0.231'
-        camera_231 = HKIPCamera(address.encode(
-            'UTF-8'), 8000, b"admin", b"humanmotion01")
-        camera_231.start()
-        # camera_232 = HKIPCamera(address.encode(
-        #     'UTF-8'), 8000, b"admin", b"humanmotion01")
-        # camera_232.start()
+    from CHKIPCamera import HKIPCamera
+    for address in address_dict:
+        hkcp = HKIPCamera(address.encode('UTF-8'), 8000, b"admin", b"humanmotion01")
+        hkcp.start()
+        camera_dict[address] = hkcp
 
     frame_counter = 0
     loop = asyncio.get_running_loop()
@@ -142,60 +131,42 @@ async def camera_loop(preload):
     # =================== ETERNAL LOOP ====================
     while True:
         start_time = loop.time()
+        frame_queue_231.put(camera_dict['10.41.0.231'].frame(rows=540, cols=960))
+        # frame_queue_231.put(camera_dict['10.41.0.198'].frame(rows=540, cols=960))
+        # frame_queue_232.put(camera_dict['10.41.0.199'].frame(rows=540, cols=960))
 
-        # if video_mode:
-        #     ok, frame = video_capture.read()
-        # else:
-
-        if frame_counter % fill_number:
-            frame_queue_231.put(camera_231.frame(rows=540, cols=960))
-            # frame_queue_232.put(camera_232.frame(rows=540, cols=960))
-        else:
-            frame_queue_231.put(camera_231.frame())
-            # frame_queue_232.put(camera_232.frame())
-
-        frame_counter = frame_counter % fill_number + 1
-
-        if not frame_counter % 5:
-            print(loop.time() - start_time, upstream_frame_queue.qsize(),
-                  frame_queue_231.qsize())
-            # print(loop.time() - start_time, upstream_frame_queue.qsize(),
-            #   frame_queue_231.qsize(), frame_queue_232.qsize())
+        # frame_counter = frame_counter % 1000
+        # if not frame_counter % 5:
+        #     print(loop.time() - start_time, upstream_frame_queue.qsize(),
+        #           frame_queue_231.qsize())
+        # print(loop.time() - start_time, upstream_frame_queue.qsize(),
+        #   frame_queue_231.qsize(), frame_queue_232.qsize())
 
         restime = reciprocal_of_max_frame_rate - loop.time() + start_time
-
         if restime > 0:
             await asyncio.sleep(restime)
 
 # =================== INIT ====================
-# address_dict = ['10.41.0.231', '10.41.0.232']
+# address_dict = ['10.41.0.198', '10.41.0.199']
 address_dict = ['10.41.0.231']
 os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
-frame_buffer_size = 20 * len(address_dict)
-
-frame_queue_231 = Queue(maxsize=frame_buffer_size)
-# frame_queue_232 = Queue(maxsize=frame_buffer_size)
-
+frame_buffer_size = 10 * len(address_dict)
 upstream_frame_queue = Queue(maxsize=frame_buffer_size)
 suspicion_face_queue = Queue(maxsize=frame_buffer_size)
 result_queue = Queue(maxsize=frame_buffer_size)
 
 # =================== ARGS ====================
-args = start_up_init(train_mode=True)
-args.fill_number = 16
+args = start_up_init()
 args.address_dict = address_dict
-# print(args.mtcnn_threshold)
 
 # =================== Process On ====================
-
-# for address in address_dict:
-#     args.ip_address = address
-#     Process(target=lambda: asyncio.run(detection_loop(args, frame_queue_231))).start()
 args.ip_address = '10.41.0.231'
+frame_queue_231 = Queue(maxsize=frame_buffer_size)
 Process(target=lambda: asyncio.run(
     detection_loop(args, frame_queue_231))).start()
 
 # args.ip_address = '10.41.0.232'
+# frame_queue_232 = Queue(maxsize=frame_buffer_size)
 # Process(target=lambda: asyncio.run(
 #     detection_loop(args, frame_queue_232))).start()
 
