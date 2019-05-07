@@ -183,7 +183,7 @@ def read_pkl_model(mpath):
 
 
 def start_up_init():
-    parser = argparse.ArgumentParser(description='Arc Face Online Test')
+    parser = argparse.ArgumentParser(description='ArcFace Online Test')
 
     # =================== General ARGS ====================
     # if not train_mode:
@@ -199,7 +199,7 @@ def start_up_init():
                         help='输入特征提取网络的图片大小')
     # parser.add_argument('--dangerous_threshold', type=int,
     #                     help='1/2报警窗口长度', default=16)
-    parser.add_argument('--model', default='./model-r100-ii/model,0',
+    parser.add_argument('--model', default='./model-r100-ii/arcface,0',
                         help='特征提取网络预训练模型路径')
     parser.add_argument('--gpu', default=0, type=int,
                         help='GPU设备ID，-1代表使用CPU')

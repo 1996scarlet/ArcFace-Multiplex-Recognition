@@ -2,28 +2,23 @@
   "nodes": [
     {
       "op": "null", 
-      "param": {}, 
       "name": "data", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv1_weight", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv1_bias", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "Convolution", 
-      "param": {
+      "name": "conv1", 
+      "attrs": {
         "cudnn_off": "False", 
         "cudnn_tune": "off", 
         "dilate": "(1,1)", 
@@ -35,32 +30,29 @@
         "stride": "(1,1)", 
         "workspace": "1024"
       }, 
-      "name": "conv1", 
-      "inputs": [[0, 0], [1, 0], [2, 0]], 
-      "backward_source_id": -1
+      "inputs": [[0, 0, 0], [1, 0, 0], [2, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "prelu1_gamma", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "attrs": {"__init__": "[\"Constant\", {\"value\": 0.25}]"}, 
+      "inputs": []
     }, 
     {
       "op": "LeakyReLU", 
-      "param": {
+      "name": "prelu1", 
+      "attrs": {
         "act_type": "prelu", 
         "lower_bound": "0.125", 
         "slope": "0.25", 
         "upper_bound": "0.334"
       }, 
-      "name": "prelu1", 
-      "inputs": [[3, 0], [4, 0]], 
-      "backward_source_id": -1
+      "inputs": [[3, 0, 0], [4, 0, 0]]
     }, 
     {
       "op": "Pooling", 
-      "param": {
+      "name": "pool1", 
+      "attrs": {
         "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
@@ -68,27 +60,22 @@
         "pooling_convention": "full", 
         "stride": "(2,2)"
       }, 
-      "name": "pool1", 
-      "inputs": [[5, 0]], 
-      "backward_source_id": -1
+      "inputs": [[5, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv2_weight", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv2_bias", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "Convolution", 
-      "param": {
+      "name": "conv2", 
+      "attrs": {
         "cudnn_off": "False", 
         "cudnn_tune": "off", 
         "dilate": "(1,1)", 
@@ -100,46 +87,39 @@
         "stride": "(1,1)", 
         "workspace": "1024"
       }, 
-      "name": "conv2", 
-      "inputs": [[6, 0], [7, 0], [8, 0]], 
-      "backward_source_id": -1
+      "inputs": [[6, 0, 0], [7, 0, 0], [8, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "prelu2_gamma", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "attrs": {"__init__": "[\"Constant\", {\"value\": 0.25}]"}, 
+      "inputs": []
     }, 
     {
       "op": "LeakyReLU", 
-      "param": {
+      "name": "prelu2", 
+      "attrs": {
         "act_type": "prelu", 
         "lower_bound": "0.125", 
         "slope": "0.25", 
         "upper_bound": "0.334"
       }, 
-      "name": "prelu2", 
-      "inputs": [[9, 0], [10, 0]], 
-      "backward_source_id": -1
+      "inputs": [[9, 0, 0], [10, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv3_weight", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv3_bias", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "Convolution", 
-      "param": {
+      "name": "conv3", 
+      "attrs": {
         "cudnn_off": "False", 
         "cudnn_tune": "off", 
         "dilate": "(1,1)", 
@@ -151,46 +131,39 @@
         "stride": "(1,1)", 
         "workspace": "1024"
       }, 
-      "name": "conv3", 
-      "inputs": [[11, 0], [12, 0], [13, 0]], 
-      "backward_source_id": -1
+      "inputs": [[11, 0, 0], [12, 0, 0], [13, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "prelu3_gamma", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "attrs": {"__init__": "[\"Constant\", {\"value\": 0.25}]"}, 
+      "inputs": []
     }, 
     {
       "op": "LeakyReLU", 
-      "param": {
+      "name": "prelu3", 
+      "attrs": {
         "act_type": "prelu", 
         "lower_bound": "0.125", 
         "slope": "0.25", 
         "upper_bound": "0.334"
       }, 
-      "name": "prelu3", 
-      "inputs": [[14, 0], [15, 0]], 
-      "backward_source_id": -1
+      "inputs": [[14, 0, 0], [15, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv4_2_weight", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv4_2_bias", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "Convolution", 
-      "param": {
+      "name": "conv4_2", 
+      "attrs": {
         "cudnn_off": "False", 
         "cudnn_tune": "off", 
         "dilate": "(1,1)", 
@@ -202,27 +175,22 @@
         "stride": "(1,1)", 
         "workspace": "1024"
       }, 
-      "name": "conv4_2", 
-      "inputs": [[16, 0], [17, 0], [18, 0]], 
-      "backward_source_id": -1
+      "inputs": [[16, 0, 0], [17, 0, 0], [18, 0, 0]]
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv4_1_weight", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "null", 
-      "param": {}, 
       "name": "conv4_1_bias", 
-      "inputs": [], 
-      "backward_source_id": -1
+      "inputs": []
     }, 
     {
       "op": "Convolution", 
-      "param": {
+      "name": "conv4_1", 
+      "attrs": {
         "cudnn_off": "False", 
         "cudnn_tune": "off", 
         "dilate": "(1,1)", 
@@ -234,16 +202,13 @@
         "stride": "(1,1)", 
         "workspace": "1024"
       }, 
-      "name": "conv4_1", 
-      "inputs": [[16, 0], [20, 0], [21, 0]], 
-      "backward_source_id": -1
+      "inputs": [[16, 0, 0], [20, 0, 0], [21, 0, 0]]
     }, 
     {
       "op": "SoftmaxActivation", 
-      "param": {"mode": "channel"}, 
       "name": "prob1", 
-      "inputs": [[22, 0]], 
-      "backward_source_id": -1
+      "attrs": {"mode": "channel"}, 
+      "inputs": [[22, 0, 0]]
     }
   ], 
   "arg_nodes": [
@@ -262,5 +227,33 @@
     20, 
     21
   ], 
-  "heads": [[19, 0], [23, 0]]
+  "node_row_ptr": [
+    0, 
+    1, 
+    2, 
+    3, 
+    4, 
+    5, 
+    6, 
+    7, 
+    8, 
+    9, 
+    10, 
+    11, 
+    12, 
+    13, 
+    14, 
+    15, 
+    16, 
+    17, 
+    18, 
+    19, 
+    20, 
+    21, 
+    22, 
+    23, 
+    24
+  ], 
+  "heads": [[19, 0, 0], [23, 0, 0]], 
+  "attrs": {"mxnet_version": ["int", 10400]}
 }

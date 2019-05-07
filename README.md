@@ -13,39 +13,6 @@ The code of InsightFace is released under the MIT License.
 
 Please click the image to watch the Youtube video. For Bilibili users, click [here](https://www.bilibili.com/video/av38041494?from=search&seid=11501833604850032313).
 
-## Recent Update
-
-**`2019.02.08`**: Please check [https://github.com/deepinsight/insightface/tree/master/recognition](https://github.com/deepinsight/insightface/tree/master/recognition) for our parallel training code which can easily and efficiently support one million identities on a single machine (8* 1080ti).
-
-**`2018.12.13`**: [TVM-Benchmark](https://github.com/deepinsight/insightface/wiki/TVM-Benchmark)
-
-**`2018.10.28`**: [Gender-Age](https://github.com/deepinsight/insightface/tree/master/gender-age) created with a lightweight model. About 1MB size, 10ms on single CPU core.  Gender accuracy 96% on validation set and 4.1 age MAE.
-
-**`2018.10.16`**: We got rank 1st on [IQIYI_VID](http://challenge.ai.iqiyi.com/detail?raceId=5afc36639689443e8f815f9e)(IQIYI video person identification) competition which in conjunction with PRCV2018, see [detail](https://github.com/deepinsight/insightface/issues/439).
-
-**`2018.06.14`**: There's a large scale Asian training dataset provided by Glint, see this [discussion](https://github.com/deepinsight/insightface/issues/256) for detail.
-
-**`2018.02.13`**: We achieved state-of-the-art performance on [MegaFace-Challenge](http://megaface.cs.washington.edu/results/facescrub.html). Please check our paper and code for implementation details.
-
-## Contents
-[Deep Face Recognition](#deep-face-recognition)
-- [Introduction](#introduction)
-- [Training Data](#training-data)
-- [Train](#train)
-- [Pretrained Models](#pretrained-models)
-- [Verification Results On Combined Margin](#verification-results-on-combined-margin)
-- [Test on MegaFace](#test-on-megaface)
-- [512-D Feature Embedding](#512-d-feature-embedding)
-- [Third-party Re-implementation](#third-party-re-implementation)
-
-[Face Alignment](#face-alignment)
-
-[Face Detection](#face-detection)
-
-[Citation](#citation)
-
-[Contact](#contact)
-
 ## Deep Face Recognition
 
 ### Introduction
@@ -183,10 +150,6 @@ Results by using ``MS1M-IBUG(MS1M-V1)``
 | Combined Margin  | 1    | 0.3  | 0.2  | 99.83 | 94.51  | 98.13    |
 | Combined Margin  | 0.9  | 0.4  | 0.15 | 99.83 | 94.20  | 98.16    |
 
-### Test on MegaFace
-
-Please check *`$INSIGHTFACE_ROOT/Evaluation/megaface/`* to evaluate the model accuracy on Megaface. All aligned images were already provided.
-
 
 ### 512-D Feature Embedding
 
@@ -197,16 +160,6 @@ In this part, we assume you are in the directory *`$INSIGHTFACE_ROOT/deploy/`*. 
 3. Run the test script *`$INSIGHTFACE_ROOT/deploy/test.py`*.
 
 For single cropped face image(112x112), total inference time is only 17ms on our testing server(Intel E5-2660 @ 2.00GHz, Tesla M40, *LResNet34E-IR*).
-
-### Third-party Re-implementation
-
-- TensorFlow: [InsightFace_TF](https://github.com/auroua/InsightFace_TF)
-- TensorFlow: [tf-insightface](https://github.com/AIInAi/tf-insightface)
-- PyTorch: [InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch)
-- PyTorch: [arcface-pytorch](https://github.com/ronghuaiyang/arcface-pytorch)
-- Caffe: [arcface-caffe](https://github.com/xialuxi/arcface-caffe)
-- Caffe: [CombinedMargin-caffe](https://github.com/gehaocool/CombinedMargin-caffe)
-- Tensorflow: [InsightFace-tensorflow](https://github.com/luckycallor/InsightFace-tensorflow)
 
 
 ## Face Alignment
@@ -228,11 +181,4 @@ author={Deng, Jiankang and Guo, Jia and Niannan, Xue and Zafeiriou, Stefanos},
 booktitle={CVPR},
 year={2019}
 }
-```
-
-## Contact
-
-```
-[Jia Guo](guojia[at]gmail.com)
-[Jiankang Deng](jiankangdeng[at]gmail.com)
 ```

@@ -71,7 +71,6 @@ async def detection_loop(preload, frame_queue):
 
         # tracker = cv2.MultiTracker_create()
         # t_box = []
-
         for img, box in detector.get_all_boxes(head_frame, save_img=False):
             try:
                 if box[4] > 0.98:
@@ -90,7 +89,6 @@ async def detection_loop(preload, frame_queue):
         # for item in t_box:
         #     tracker.add(cv2.TrackerMedianFlow_create(), head_frame, tuple(item))
         upstream_frame_queue.put((ip_address, head_frame))
-        # await sio.emit('frame_data', encode_image(head_frame), namespace='/remilia')
 
         for i in range(int((loop.time() - start_time) * 25 + 1)):
             body_frame = frame_queue.get()

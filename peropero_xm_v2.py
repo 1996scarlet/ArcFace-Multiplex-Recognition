@@ -1,7 +1,6 @@
 # coding: utf-8
 import cv2
 import os
-import sys
 import numpy as np
 import time
 from termcolor import colored
@@ -12,6 +11,7 @@ from helper import read_pkl_model, start_up_init, encode_image
 from CXMIPCamera import XMIPCamera
 import face_detector
 import face_embedding
+import functools
 
 
 async def upload_loop(url="http://127.0.0.1:6789"):
@@ -33,8 +33,7 @@ async def upload_loop(url="http://127.0.0.1:6789"):
             await sio.emit('result_data', result_string, namespace='/flandre')
         except Exception as e:
             pass
-        # print(mid_time-strat_time, time.time()-mid_time)
-        # sys.stdout.flush()
+        # print(mid_time-strat_time, time.time()-mid_time, flush=True)
 
     @sio.on('connect', namespace='/flandre')
     async def on_connect():
@@ -60,6 +59,7 @@ async def embedding_loop(preload):
 async def detection_loop(preload):
     # =================== FD MODEL ====================
     detector = face_detector.DetectorModel(preload)
+    rate = preload.max_frame_rate
     loop = asyncio.get_running_loop()
 
     while True:
@@ -79,13 +79,11 @@ async def detection_loop(preload):
 
             upstream_queue.put((ip_address, head_frame))
 
-        print(colored(loop.time()-start_time, 'red'))
+        print(colored(loop.time()-start_time, 'red'), flush=True)
 
-        for i in range(int((loop.time() - start_time) * 25 + 1)):
+        for i in range(int((loop.time() - start_time) * rate + 1)):
             for item in frame_queue.get():
                 upstream_queue.put(item)
-
-        sys.stdout.flush()
 
 
 async def camera_loop(preload):
@@ -98,39 +96,31 @@ async def camera_loop(preload):
         xmcp.start()
         camera_dict[address] = xmcp
 
-    frame_counter = 0
-    loop = asyncio.get_running_loop()
-
     # =================== ETERNAL LOOP ====================
+    loop = asyncio.get_running_loop()
     while True:
         start_time = loop.time()
         frame_queue.put([(address, camera_dict[address].frame(rows=540, cols=960))
                          for address in address_dict])
-
-        # frame_counter = frame_counter % 1000
-        # if not frame_counter % 5:
-        #     print(upstream_queue.qsize(), frame_queue.qsize())
-
         restime = reciprocal_of_max_frame_rate - loop.time() + start_time
         if restime > 0:
             await asyncio.sleep(restime)
 
-# =================== INIT ====================
-address_dict = ['10.41.0.198', '10.41.0.199']
-os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
-frame_buffer_size = 10 * len(address_dict)
-
-frame_queue = Queue(maxsize=frame_buffer_size)
-upstream_queue = Queue(maxsize=frame_buffer_size)
-suspicion_face_queue = Queue(maxsize=1)
-result_queue = Queue(maxsize=1)
 
 # =================== ARGS ====================
+os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
+address_dict = ['10.41.0.198', '10.41.0.199']
 args = start_up_init()
 args.mtcnn_minsize = 288
 args.mtcnn_factor = 0.1
 args.mtcnn_threshold = [0.92, 0.95, 0.99]
 args.address_dict = address_dict
+
+# =================== INIT ====================
+frame_queue = Queue(maxsize=args.max_frame_rate)
+upstream_queue = Queue(maxsize=args.max_frame_rate * len(address_dict))
+suspicion_face_queue = Queue(maxsize=1)
+result_queue = Queue(maxsize=1)
 
 # =================== Process On ====================
 Process(target=lambda: asyncio.run(detection_loop(args))).start()
