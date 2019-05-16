@@ -1,4 +1,3 @@
-import face_model
 import cv2
 import sys
 import numpy as np
@@ -13,12 +12,13 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
 from helper import read_pkl_model, start_up_init, get_dataset, get_image_paths_and_labels
+import face_embedding
 
 # =================== ARGS ====================
-args = start_up_init(True)
+args = start_up_init()
 
 # =================== MODEL CLASS ====================
-arcface = face_model.FaceModel(args)
+arcface = face_embedding.EmbeddingModel(args)
 
 # =================== LOAD DATASET ====================.
 dir_train = './Embedding/train.npy'
@@ -75,12 +75,12 @@ mlp = MLPClassifier(hidden_layer_sizes=(550, ), verbose=True,
 # print('train dataset accuracy: %.2f%%' %
 #       (100 * metrics.accuracy_score(y_test, model.predict(X_test))))
 
-# mlp.fit(train_emb_array, labels_train)
+mlp.fit(train_emb_array, labels_train)
 
-# with open('./model-mlp/mlp.pkl', 'wb') as outfile:
-#     pickle.dump((mlp, class_names), outfile)
+with open('./zoo/model-mlp/mlp.pkl', 'wb') as outfile:
+    pickle.dump((mlp, class_names), outfile)
 
-with open('./model-mlp/mlp.pkl', 'rb') as infile:
+with open('./zoo/model-mlp/mlp.pkl', 'rb') as infile:
     (mlp, class_names) = pickle.load(infile)
 
 safe_prob = mlp.predict_proba(safe_emb_array)
