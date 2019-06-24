@@ -102,6 +102,7 @@ async def camera_loop(preload):
         start_time = loop.time()
         camera.read()[1]
         # pairs = [(ip, camera_dict[ip].frame(rows=672, cols=672)) for ip in addr_list]
+        # pairs = [(str(code), camera_dict[code].read()[1]) for code in code_list]
         pairs = [(str(code), cv2.resize(camera_dict[code].read()[1], (672, 672)))
                  for code in code_list]
         frame_queue.put(pairs)
@@ -114,20 +115,24 @@ async def camera_loop(preload):
 # =================== INIT ====================
 os.environ["MXNET_CUDNN_AUTOTUNE_DEFAULT"] = "0"
 preload = start_up_init()
-preload.scales = [0.6]
-preload.usb_camera_code = [2]
+# preload.scales = [0.7]
+# preload.usb_camera_code = [0]
+preload.max_face_number = 30
+
+print(preload.usb_camera_code)
 
 camera_dict = {}
 for code in preload.usb_camera_code:
     camera = cv2.VideoCapture(code)
+    # camera = cv2.VideoCapture('./trump.mp4') £ use like this for videos testing
     camera_dict[code] = camera
 
 # =================== QUEUE ====================
 frame_buffer_size = preload.queue_buffer_size
 frame_queue = Queue(frame_buffer_size)
 upstream_queue = Queue(frame_buffer_size)
-suspicion_face_queue = Queue(frame_buffer_size)
-result_queue = Queue(frame_buffer_size)
+suspicion_face_queue = Queue(preload.max_face_number)
+result_queue = Queue(preload.max_face_number)
 
 # =================== Process On ====================
 Process(target=lambda: asyncio.run(embedding_loop(preload))).start()

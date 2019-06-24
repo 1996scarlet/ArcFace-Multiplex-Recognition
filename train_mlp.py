@@ -1,4 +1,5 @@
 import sys
+import os
 import numpy as np
 import pickle
 
@@ -11,6 +12,7 @@ import face_embedding
 import face_detector
 
 # =================== ARGS ====================
+os.environ["MXNET_CUDNN_AUTOTUNE_DEFAULT"] = "0"
 args = start_up_init()
 args.retina_model = './model/M25'
 args.scales = [0.5]
@@ -28,6 +30,8 @@ paths_train, labels_train = get_image_paths_and_labels(dataset_train)
 try:
     train_emb_array = np.load(dir_train)
 except OSError:
+    if not os.path.exists('./Temp/raw/'):
+        os.makedirs('./Temp/raw/')
     detector.get_all_boxes_from_path(paths_train, save_img=True)
     dataset_train = get_dataset(data_train)
     paths_train, labels_train = get_image_paths_and_labels(dataset_train)
@@ -39,9 +43,9 @@ print('Train dataset reloaded: ', len(train_emb_array))
 class_names = [cls.name.replace('_', ' ') for cls in dataset_train]
 print(class_names)
 
-mlp = MLPClassifier(hidden_layer_sizes=(1024, 550 , ), verbose=True,
+mlp = MLPClassifier(hidden_layer_sizes=(550, ), verbose=True,
                     activation='relu', solver='adam', tol=10e-7, n_iter_no_change=100,
-                    learning_rate_init=10e-4, max_iter=50000)
+                    learning_rate_init=1e-3, max_iter=50000)
 
 mlp.fit(train_emb_array, labels_train)
 

@@ -1,10 +1,26 @@
 
-# CV Object Detection and Recognition
+# Real-Time ArcFace Multiplex Recognition
 
-## How to build Darknet and R-CNN
+## How to run
 
-* `chmod a+x ./build_darknet_and_rcnn.sh`
-* `./build_darknet_and_rcnn.sh`
+* Install yarn
+  * `sudo apt install curl`
+  * `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
+  * `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
+  * `sudo apt update && sudo apt install yarn`
+* Electron Node-JS Client
+  * `cd electron-client`
+  * `yarn` or `npm install`
+  * `yarn start` or `npm start`
+* Build R-CNN for Retina Face
+  * `cd ..`
+  * `chmod a+x ./build_darknet_and_rcnn.sh`
+  * `./build_rcnn.sh`
+* Python Deal
+  * `python3 usb_camera.py -c X` e.g: Replace X with 0
+  * Click the corresponding `Camera {X}` Button at Electron
+* Result (Nearly 24 fps at GTX1660ti)
+  ![ArcFace Demo](./Media/result.png)
 
 ## How to train mlp classifier
 
@@ -30,9 +46,22 @@
 
 * `python3 train_mlp.py`
 
-## How to run
+## Citation
 
-* Node-JS Server `node ../NodeServer/server.js`
-* CDS `python3 peropero_cds_v3.py` at `http://127.0.0.1:6789/cds`
-* TOOLS `python3 niconico_tools.py` at `http://127.0.0.1:6789/tools`
-* LUNATIC `python3 mikomiko_hk_v4.py` at `http://127.0.0.1:6789/lunatic`
+If you find *InsightFace* useful in your research, please consider to cite the following related papers:
+
+```
+@inproceedings{deng2019retinaface,
+    title={RetinaFace: Single-stage Dense Face Localisation in the Wild},
+    author={Deng, Jiankang and Guo, Jia and Yuxiang, Zhou and Jinke Yu and Irene Kotsia and Zafeiriou, Stefanos},
+    booktitle={arxiv},
+    year={2019}
+}
+
+@inproceedings{deng2018arcface,
+    title={ArcFace: Additive Angular Margin Loss for Deep Face Recognition},
+    author={Deng, Jiankang and Guo, Jia and Niannan, Xue and Zafeiriou, Stefanos},
+    booktitle={CVPR},
+    year={2019}
+}
+```

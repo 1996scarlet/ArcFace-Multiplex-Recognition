@@ -25,7 +25,7 @@ def start_up_init():
     parser.add_argument('--max_face_number',
                         type=int,
                         help='同时检测的最大人脸数量',
-                        default=8)
+                        default=16)
     parser.add_argument('--max_frame_rate',
                         type=int,
                         help='Max frame rate',
@@ -34,10 +34,10 @@ def start_up_init():
                         type=int,
                         help='MP Queue size',
                         default=12)
-    parser.add_argument('--usb_camera_code',
-                        type=float,
+    parser.add_argument('-c', '--usb_camera_code',
+                        type=int,
                         nargs='+',
-                        help='Code of usb camera.',
+                        help='Code of usb camera. (You can use media file path to test with videos.)',
                         default=[0])
     parser.add_argument('--address_list',
                         type=float,
