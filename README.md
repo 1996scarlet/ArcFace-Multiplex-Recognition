@@ -62,11 +62,12 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
 
 ## Citation
 
-```
+``` bibtex
 @inproceedings{deng2020retinaface,
   title={Retinaface: Single-shot multi-level face localisation in the wild},
-  author={Deng, Jiankang and Guo, Jia and Ververas, Evangelos and Kotsia, Irene and Zafeiriou, Stefanos},
-  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  author={Deng, Jiankang and Guo, Jia and Ververas, Evangelos and
+          Kotsia, Irene and Zafeiriou, Stefanos},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   pages={5203--5212},
   year={2020}
 }
