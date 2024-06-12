@@ -31,7 +31,6 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
 * `mkdir ./Temp/raw`
 * `mkdir ./Temp/train_data`
 * Place training pictures in the following format：
-
     ```shell
     ─── train_data
         ├── bush
@@ -47,7 +46,6 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
             ├── 1559637960.31212.jpg
             └── 1559637960.3381834.jpg
     ```
-
 * `python3 train_mlp.py`
 
 
@@ -75,7 +73,7 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
 @inproceedings{deng2019arcface,
   title={Arcface: Additive angular margin loss for deep face recognition},
   author={Deng, Jiankang and Guo, Jia and Xue, Niannan and Zafeiriou, Stefanos},
-  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
   pages={4690--4699},
   year={2019}
 }
