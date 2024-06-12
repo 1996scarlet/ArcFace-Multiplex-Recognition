@@ -5,6 +5,7 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
 
 ![ArcFace Demo](./Media/result.png)
 
+
 ## How to run
 
 * Install yarn
@@ -18,7 +19,7 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
   * `yarn start` or `npm start`
 * Build R-CNN for Retina Face
   * `cd ..`
-  * `chmod a+x ./build_darknet_and_rcnn.sh`
+  * `chmod a+x ./build_rcnn.sh`
   * `./build_rcnn.sh`
 * Python Deal
   * `python3 usb_camera.py -c X` e.g: Replace X with 0
@@ -49,19 +50,6 @@ Face Detection and Recognition using RetinaFace and ArcFace, can reach nearly 24
 
 * `python3 train_mlp.py`
 
-## ArcFace Video Demo
-
-[![ArcFace Demo](https://github.com/deepinsight/insightface/blob/master/resources/facerecognitionfromvideo.PNG)](https://www.youtube.com/watch?v=y-D1tReryGA&t=81s)
-
-Please click the image to watch the Youtube video. For Bilibili users, click [here](https://www.bilibili.com/video/av38041494?from=search&seid=11501833604850032313).
-
-## RetinaFace Introduction
-
-RetinaFace is a practical single-stage [SOTA](http://shuoyang1213.me/WIDERFACE/WiderFace_Results.html) face detector which is initially described in [arXiv technical report](https://arxiv.org/abs/1905.00641)
-
-![demoimg1](https://github.com/deepinsight/insightface/blob/master/resources/11513D05.jpg)
-
-![demoimg2](https://github.com/deepinsight/insightface/blob/master/resources/widerfacevaltest.png)
 
 ## Verification
 
@@ -74,20 +62,20 @@ RetinaFace is a practical single-stage [SOTA](http://shuoyang1213.me/WIDERFACE/W
 
 ## Citation
 
-If you find *InsightFace* useful in your research, please consider to cite the following related papers:
-
 ```
-@inproceedings{deng2019retinaface,
-    title={RetinaFace: Single-stage Dense Face Localisation in the Wild},
-    author={Deng, Jiankang and Guo, Jia and Yuxiang, Zhou and Jinke Yu and Irene Kotsia and Zafeiriou, Stefanos},
-    booktitle={arxiv},
-    year={2019}
+@inproceedings{deng2020retinaface,
+  title={Retinaface: Single-shot multi-level face localisation in the wild},
+  author={Deng, Jiankang and Guo, Jia and Ververas, Evangelos and Kotsia, Irene and Zafeiriou, Stefanos},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={5203--5212},
+  year={2020}
 }
 
-@inproceedings{deng2018arcface,
-    title={ArcFace: Additive Angular Margin Loss for Deep Face Recognition},
-    author={Deng, Jiankang and Guo, Jia and Niannan, Xue and Zafeiriou, Stefanos},
-    booktitle={CVPR},
-    year={2019}
+@inproceedings{deng2019arcface,
+  title={Arcface: Additive angular margin loss for deep face recognition},
+  author={Deng, Jiankang and Guo, Jia and Xue, Niannan and Zafeiriou, Stefanos},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={4690--4699},
+  year={2019}
 }
 ```
